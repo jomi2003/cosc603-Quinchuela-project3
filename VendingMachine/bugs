@@ -1,0 +1,7 @@
+In the VendingMachineClass, I found a bug when the user gives a negative value to the balance field. 
+This was overlooked by the fact that the balance field is initialized to a final value of zero
+and it is not validated by the constructor.
+That's why the bug was passing in the AssertEquals() assertion statements and also with the exception clause. 
+In the VendingMachineItem constructor I changed the price for this.price = price because
+when I was running AllTests, I saw an error in the way the price field was being instantiated.
+In summary, I fixed the constructor on both classes to not instantiate negative values. 
