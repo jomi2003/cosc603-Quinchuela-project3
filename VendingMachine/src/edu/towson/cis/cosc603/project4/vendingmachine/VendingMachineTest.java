@@ -23,7 +23,7 @@ public class VendingMachineTest {
 	VendingMachineItem butterfinger;
 	VendingMachine myBalance1;
 	VendingMachine myBalance2;
-	VendingMachine myBalance3;
+	
 	
 	
 	@Before
@@ -265,6 +265,8 @@ public class VendingMachineTest {
 	public void tearDown() throws Exception {
 		 myMachine = null;
 		 snickers = null;
+		 myBalance1 = null;
+		 myBalance2 = null;
 	//	System.out.println("after");
 	}
 	
