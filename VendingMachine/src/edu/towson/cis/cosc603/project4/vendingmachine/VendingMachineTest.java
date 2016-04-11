@@ -21,8 +21,12 @@ public class VendingMachineTest {
 	VendingMachine myMachine;
 	VendingMachineItem snickers;
 	VendingMachineItem butterfinger;
+	VendingMachineItem milkyway;
 	VendingMachine myBalance1;
 	VendingMachine myBalance2;
+	VendingMachine myBalance3;
+	VendingMachineException machineException;
+	
 	
 	
 	
@@ -30,10 +34,14 @@ public class VendingMachineTest {
 	public void setUp() throws Exception {
 		myMachine = new VendingMachine();
 		snickers = new VendingMachineItem ("Snickers", 1.0);
+		milkyway = new VendingMachineItem (null, 2.00);
+		
 		myMachine.addItem (snickers, VendingMachine.A_CODE);
 		myBalance1 = new VendingMachine(20.00);
 		myBalance2 = new VendingMachine(0.00);
 		
+		machineException = new VendingMachineException();
+
 		
 	}
 
@@ -46,6 +54,16 @@ public class VendingMachineTest {
 	public final void testVendingMachine() {
 		assertNotNull(snickers);
 	}
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachine#VendingMachine()}.
+	 * Test the constructor for negative values
+	 */
+	@Test (expected = VendingMachineException.class)
+    public void testConstructorNegativeValues() {
+	//	assertSame(machineException, new VendingMachineItem("snack", -1.0));
+		myBalance3 = new VendingMachine (-10.00);
+    }
 
 	/**
 	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachine#addItem(edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem, java.lang.String)}.
@@ -55,8 +73,17 @@ public class VendingMachineTest {
 	public final void testAddItem() {
 		myMachine.addItem(snickers, VendingMachine.B_CODE);
 		myMachine.addItem(snickers, VendingMachine.C_CODE);
-		myMachine.addItem(snickers, VendingMachine.D_CODE);
-		
+		myMachine.addItem(snickers, VendingMachine.D_CODE);	
+	}
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachine#addItem(edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem, java.lang.String)}.
+	 * Test the addItem() for unknown values
+	 */
+	@Test (expected = VendingMachineException.class)
+	public final void testAddItemUnknown(){
+		myMachine.addItem(snickers, "F");
+		assertNotEquals( snickers, myMachine.getItem("F"));
 	}
 	
 	/**
@@ -64,10 +91,11 @@ public class VendingMachineTest {
 	 * Test a known exception when an item occupies the same slot.
 	 */
 	@Test (expected = VendingMachineException.class)
-	public final void testAddItemThrowsExceptionWhenOccupiedSlot() {
+	public final void testAddItemThrowsExceptionWhenOccupiedSlot(){
 		myMachine.addItem(snickers, VendingMachine.A_CODE);
-		myMachine.addItem(snickers, VendingMachine.C_CODE);
-		myMachine.addItem(snickers, VendingMachine.D_CODE);
+	//	assertSame (machineException, myMachine.Item(VendingMachine.A_CODE));
+		//assertEquals(machineException, myMachine.addItem(snickers, VendingMachine.A_CODE));
+		
 	}
 
 	/**
@@ -97,8 +125,11 @@ public class VendingMachineTest {
 	 */
 	@Test (expected = VendingMachineException.class)
 	public final void testRemoveItemThrowsExceptionForUndeclaredItem() {
-		myMachine.removeItem("B");	
-		assertEquals(null, myMachine.getItem("B"));	
+		myMachine.removeItem("F");	
+		//assertNull(myMachine.getItem("B"));	
+		//assertNotNull(myMachine.getItem("B"));
+		//assertNotEquals("B", myMachine.getItem("B"));
+	//assertSame (machineException, myMachine.removeItem(null));
 	}
 	
 	/**
@@ -107,9 +138,10 @@ public class VendingMachineTest {
 	 */
 	@Test (expected = VendingMachineException.class)
 	public final void testRemoveItemThrowsExceptionForItemRemovedTwice() {
+		myMachine.removeItem(VendingMachine.A_CODE);	
 		myMachine.removeItem(VendingMachine.A_CODE);
-		myMachine.removeItem(VendingMachine.A_CODE);
-		assertEquals(null, myMachine.getItem(VendingMachine.A_CODE));	
+		//assertNull(myMachine.getItem(VendingMachine.A_CODE));	
+		//assertSame(machineException, myMachine.removeItem(VendingMachine.A_CODE));
 	}
 
 	/**
@@ -143,6 +175,8 @@ public class VendingMachineTest {
 	@Test (expected = VendingMachineException.class)
 	public final void testInsertMoneyLessThanZeroBalance(){
 		myMachine.insertMoney(-20.00);	
+		assertEquals(-20.00 , myMachine.getBalance(), 0.01);
+		
 	}
 	
 	/**
@@ -214,6 +248,7 @@ public class VendingMachineTest {
 	public final void testMakePurchaseWithMoneyLessThanZero() {
 		myMachine.insertMoney(-10.00);
 		assertFalse(myMachine.makePurchase(VendingMachine.A_CODE));
+		
 	}
 	
 	/**
@@ -225,6 +260,17 @@ public class VendingMachineTest {
 		myMachine.insertMoney(0.00);
 		assertFalse(myMachine.makePurchase(VendingMachine.A_CODE));
 	}
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachine#makePurchase(java.lang.String)}.
+	 * Test MakePurchase to see that an empty item can not be purchased.
+	 */
+	@Test 
+	public final void testMakePurchaseOfANullItem() {
+		myMachine.insertMoney(10.00);
+		assertFalse(myMachine.makePurchase(VendingMachine.D_CODE));	
+	}
+
 	/**
 	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachine#returnChange()}.
 	 * Test returnChange() to see the correct change after making a purchase
@@ -267,6 +313,8 @@ public class VendingMachineTest {
 		 snickers = null;
 		 myBalance1 = null;
 		 myBalance2 = null;
+		 myBalance3 = null;
+		machineException = null;
 	//	System.out.println("after");
 	}
 	

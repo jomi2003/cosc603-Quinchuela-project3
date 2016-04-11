@@ -18,6 +18,8 @@ public class VendingMachineItemTest {
 	VendingMachineItem item;
 	VendingMachineItem snickers;
 	VendingMachineItem freeCandy;
+	VendingMachineItem snack;
+	VendingMachineException machineException;
 	
 	
 	/**
@@ -29,7 +31,7 @@ public class VendingMachineItemTest {
 		item = new VendingMachineItem ("butterfinger", 1.00);
 		snickers = new VendingMachineItem ("Snickers", 1.00);
 		freeCandy = new VendingMachineItem ("free", 0.00);
-		
+		machineException = new VendingMachineException();
 	}
 
 	/**
@@ -41,6 +43,17 @@ public class VendingMachineItemTest {
 		assertNotNull(item);
 	}
 
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getName()}.
+	 * Test GetName() to see if it returns the name of the item.
+	 */
+	
+	@Test (expected = VendingMachineException.class)
+    public void testConstructorNegativeValues() {
+	//	assertSame(machineException, new VendingMachineItem("snack", -1.0));
+		snack = new VendingMachineItem("snack", -1.0);
+    }
+	
 	/**
 	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getName()}.
 	 * Test GetName() to see if it returns the name of the item.

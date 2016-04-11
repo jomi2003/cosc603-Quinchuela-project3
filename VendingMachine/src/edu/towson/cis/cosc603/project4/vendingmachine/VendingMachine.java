@@ -150,6 +150,9 @@ public class VendingMachine {
 		}
 		return item;
 	}
+	//} else {
+	//	throw new VendingMachineException(SLOT_MESSAGE + code + IS_EMPTY_MESSAGE);
+	//}
 
 	/**
 	 * Function to put money into the vending machine.  

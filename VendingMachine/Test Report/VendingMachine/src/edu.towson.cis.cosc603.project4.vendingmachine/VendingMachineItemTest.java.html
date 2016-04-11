@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>VendingMachineItemTest.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">AllTests (Apr 10, 2016 9:23:05 PM)</a> &gt; <a href="../../index.html" class="el_group">VendingMachine</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">edu.towson.cis.cosc603.project4.vendingmachine</a> &gt; <span class="el_source">VendingMachineItemTest.java</span></div><h1>VendingMachineItemTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package edu.towson.cis.cosc603.project4.vendingmachine;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * @author JQ
+ *
+ */
+<span class="fc" id="L16">public class VendingMachineItemTest {</span>
+	
+	VendingMachineItem item;
+	VendingMachineItem snickers;
+	VendingMachineItem freeCandy;
+	VendingMachineItem snack;
+	VendingMachineException machineException;
+	
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before 
+	public void setUp() throws Exception {
+		
+<span class="fc" id="L31">		item = new VendingMachineItem (&quot;butterfinger&quot;, 1.00);</span>
+<span class="fc" id="L32">		snickers = new VendingMachineItem (&quot;Snickers&quot;, 1.00);</span>
+<span class="fc" id="L33">		freeCandy = new VendingMachineItem (&quot;free&quot;, 0.00);</span>
+<span class="fc" id="L34">		machineException = new VendingMachineException();</span>
+<span class="fc" id="L35">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#VendingMachineItem(java.lang.String, double)}.
+	 * Test the constructor
+	 */
+	@Test
+	public final void testVendingMachineItem() {
+<span class="fc" id="L43">		assertNotNull(item);</span>
+<span class="fc" id="L44">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getName()}.
+	 * Test GetName() to see if it returns the name of the item.
+	 */
+	
+	@Test (expected = VendingMachineException.class)
+    public void testConstructorNegativeValues() {
+	//	assertSame(machineException, new VendingMachineItem(&quot;snack&quot;, -1.0));
+<span class="nc" id="L54">		snack = new VendingMachineItem(&quot;snack&quot;, -1.0);</span>
+<span class="nc" id="L55">    }</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getName()}.
+	 * Test GetName() to see if it returns the name of the item.
+	 */
+	@Test
+	public final void testGetName() {
+<span class="fc" id="L63">		assertEquals(&quot;butterfinger&quot;, item.getName());</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getPrice()}.
+	 * Test GetPrice() to see if correct price is returned with a positive number for price
+	 */
+	@Test
+	public final void testGetPricePositiveNumber() {
+<span class="fc" id="L72">		assertEquals(1.00, snickers.getPrice(), 0.01);</span>
+<span class="fc" id="L73">	}	</span>
+	
+	/**
+	 * Test method for {@link edu.towson.cis.cosc603.project4.vendingmachine.VendingMachineItem#getPrice()}.
+	 * Test GetPrice() to see if correct price is returned with a zero number for price
+	 */
+	@Test 
+		public final void testGetPriceWithZeroNumber() {	
+<span class="fc" id="L81">		assertEquals(0.00, freeCandy.getPrice(), 001);	</span>
+<span class="fc" id="L82">	}</span>
+	
+
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+<span class="fc" id="L91">		item = null;</span>
+<span class="fc" id="L92">		snickers = null;</span>
+<span class="fc" id="L93">		freeCandy = null;</span>
+<span class="fc" id="L94">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span>AllTests (Apr 10, 2016 9:23:05 PM)</div></body></html>
